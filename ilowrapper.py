@@ -36,6 +36,9 @@ def power_status(a):
 def get_serial(a):
     return a.get_host_data()[1]['Serial Number']
 
+# Power cycle a server
+def reset(a):
+    return a.reset_server()
 
 def retrieve_arguments():
     parser = argparse.ArgumentParser(description='Returns servers facts from iLO',formatter_class=argparse.RawTextHelpFormatter)
@@ -50,6 +53,7 @@ def retrieve_arguments():
     parser.add_argument('--poweron', action='store_true', help="Power on the server")
     parser.add_argument('--poweroff', action='store_true', help="Power off the server")
     parser.add_argument('--powerstatus', action='store_true', help="Get power status of the server")
+    parser.add_argument('--reset', action='store_true', help="Power cycle the server")
     args = parser.parse_args()
     return args
 
@@ -81,6 +85,9 @@ def main():
 
   if args.powerstatus:
      print(power_status(ilo))
+
+  if args.reset:
+     print(reset(ilo))
 
 if __name__ == "__main__":
     main()
